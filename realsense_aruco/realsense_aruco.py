@@ -1,6 +1,7 @@
+import time
 from cv2 import transform
 import numpy as np
-import pyrealsense2 as rs
+import pyrealsense2.pyrealsense2 as rs
 import threading
 import cv2
 import transforms3d
@@ -128,6 +129,7 @@ class ArUcoTracker(Node):
         CameraConfig.calibrate_camera()
 
         self.get_logger().info("aruco_tracker node should be started")
+        # self.timer = self.create_timer(0.1, self.run_vision_callback)
         t1 = threading.Thread(target=self.run_vision_callback)
         t1.daemon = True
         t1.start()
@@ -160,13 +162,14 @@ class ArUcoTracker(Node):
                     translation = self.improve_translation(color_frame_arr, depth_frame_arr, translation, intrinsics)
                     self.draw_marker_info(color_frame_arr, marker_corner, marker_id, rotation, translation)
 
-                    cv2.aruco.drawAxis(color_frame_arr, CameraConfig.camera_matrix, CameraConfig.distortion_coeffecients, rotation, translation, DrawConfig.axis_length)
+                    cv2.drawFrameAxes(color_frame_arr, CameraConfig.camera_matrix, CameraConfig.distortion_coeffecients, rotation, translation, DrawConfig.axis_length)
                     transform = self.get_transform(rotation, translation)
                     self.buffer_marker(marker_id, transform)
 
             cv2.imshow('color frame', color_frame_arr)
             if cv2.waitKey(5) & 0xFF == 27:
                 break
+            time.sleep(0.1)
 
         cv2.destroyAllWindows()
 
@@ -269,6 +272,7 @@ def main(args=None):
         try:
             executor.spin()
         finally:
+            cv2.destroyAllWindows()
             executor.shutdown()
             c1.destroy_node()
             c2.destroy_node()            

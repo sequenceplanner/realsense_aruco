@@ -21,7 +21,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'realsense_aruco = realsense_aruco.realsense_aruco:main'
+            'realsense_aruco = realsense_aruco.realsense_aruco:main',
+            'realsense_aruco_with_hands = realsense_aruco.realsense_aruco_with_hands:main'
         ],
     },
 )
