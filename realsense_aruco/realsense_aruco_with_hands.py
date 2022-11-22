@@ -56,7 +56,7 @@ class CameraConfig:
     aruco_params = None
 
     marker_size = 0.096
-    camera_name = "realsense_d435"
+    camera_name = "d435_camera"
     camera_index = 6
 
     camera_matrix = None
