@@ -34,6 +34,7 @@ class StampContainer:
     @classmethod
     def clear(cls):
         cls.aruco_stamps = []
+        cls.hands = []
 
 
 class DrawConfig:
@@ -343,6 +344,7 @@ class ArUcoTracker(Node):
                             single_hand_msg.thumb_cmc = thumb_cmc_landmark
                             single_hand_msg.thumb_mcp = thumb_mcp_landmark
                             single_hand_msg.thumb_ip = thumb_ip_landmark
+                            single_hand_msg.thumb_tip = thumb_ip_landmark
                             single_hand_msg.index_finger_mcp = index_finger_mcp_landmark
                             single_hand_msg.index_finger_pip = index_finger_pip_landmark
                             single_hand_msg.index_finger_dip = index_finger_dip_landmark
